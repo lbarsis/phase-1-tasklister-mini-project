@@ -11,7 +11,11 @@ body {
 }
 
 button {
-  font-size: 7px;
+  margin-left: 0px;
+  font-size: 14px;
+  background-color: transparent;
+  border-radius: 10px;
+  border: none;
 }
 
 #main-content {
@@ -32,6 +36,7 @@ button {
   border: 1px solid #333;
   background: rgba(255, 255, 255, 0.75);
   padding: 15px 20px 18px 18px;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 2px 5px 5px #333;
 }
+
