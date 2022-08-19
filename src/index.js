@@ -15,15 +15,63 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function buildTask(task) {
   let p = document.createElement('p')
-  let btn = document.createElement('button')
-  btn.textContent = '❌'
-  btn.addEventListener('click', handleDelete)
+  let deleteButton = document.createElement('button')
+  let editButton = document.createElement('button')
+
+  deleteButton.textContent = '❌'
+  deleteButton.addEventListener('click', handleDelete)
+
+  editButton.textContent = '✏️'
+  editButton.addEventListener('click', buildEditForm)
+
   p.textContent = `${task} `
-  p.id = 'taskItem'
-  p.appendChild(btn)
+  p.id = determinePriority(document.querySelector('select')) +' '+ task
+  p.style.color = document.querySelector('select').value
+  p.appendChild(deleteButton)
+  p.appendChild(editButton)
+
   document.querySelector('#tasks').appendChild(p)
 }
 
 function handleDelete(e) {
   e.target.parentNode.remove()
+}
+
+function buildEditForm(e) {
+  e.target.parentNode.remove()
+  let editForm = document.createElement('form')
+  let editLabel = document.createElement('label')
+  let editInput = document.createElement('input')
+  let editSubmit = document.createElement('input')
+
+  editForm.id = 'editTaskForm'
+  editForm.method = 'POST'
+
+  editLabel.for = 'editTaskDescription'
+  editLabel.textContent = 'Edit Task '
+
+  editInput.type = 'text'
+  editInput.id = 'editTaskDescription'
+  editInput.name = 'editTaskDescription'
+  editInput.placeholder = 'example'
+
+  editSubmit.type = 'submit'
+  editSubmit.textContent = 'Change Item'
+
+  editSubmit.addEventListener('click', handleEdit)
+
+  editForm.appendChild(editLabel)
+  editForm.appendChild(editInput)
+  editForm.appendChild(editSubmit)
+  document.querySelector('#tasks').appendChild(editForm)
+}
+
+function determinePriority(priority) {
+  if (priority.value === "Red") {
+    return `high`
+  } else if (priority.value === "Yellow") {
+    return `medium`
+  }else {
+    return `low`
+  }
 }
